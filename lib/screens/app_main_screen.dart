@@ -1,5 +1,7 @@
+import 'package:delivery_app/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AppMainScreen extends StatefulWidget {
@@ -10,18 +12,75 @@ class AppMainScreen extends StatefulWidget {
 }
 
 class _AppMainScreenState extends State<AppMainScreen> {
-  GoogleMapController? mapController;
-  final LatLng _center = const LatLng(33.77, 10.88);
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
+  final List<IconData> _icons = [
+    FontAwesomeIcons.house,
+    FontAwesomeIcons.boxOpen,
+    FontAwesomeIcons.truckFast,
+    FontAwesomeIcons.solidCircleUser,
+  ];
+  final List<String> _labels = ["Home", "Orders", "Shipment", "Profile"];
+  int _currentIndex = 0;
+  final List<Widget> pages = [
+    Center(child: Text("Home")),
+    Center(child: Text("Orders")),
+    Center(child: Text("Shipment")),
+    Center(child: Text("Profile")),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(target: _center, zoom: 14.0),
+      body: pages[_currentIndex],
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.only(top: 10, bottom: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5,
+              offset: Offset(0, -1),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(_icons.length, (index) {
+            final bool isSelected = _currentIndex == index;
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                    decoration:
+                        isSelected
+                            ? BoxDecoration(
+                              color: buttonSecondaryColor,
+                              borderRadius: BorderRadius.circular(15),
+                            )
+                            : null,
+                    child: Icon(
+                      _icons[index],
+                      size: 18,
+                      color: isSelected ? buttonMainColor : Colors.black,
+                    ),
+                  ),
+                  Text(
+                    _labels[index],
+                    style: TextStyle(
+                      color: isSelected ? buttonMainColor : Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ),
       ),
     );
   }
