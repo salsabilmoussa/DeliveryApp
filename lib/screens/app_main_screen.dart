@@ -1,3 +1,4 @@
+import 'package:delivery_app/screens/driver_home_screen.dart';
 import 'package:delivery_app/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
   final List<String> _labels = ["Home", "Orders", "Shipment", "Profile"];
   int _currentIndex = 0;
   final List<Widget> pages = [
-    Center(child: Text("Home")),
+    DriverHomeScreen(),
     Center(child: Text("Orders")),
     Center(child: Text("Shipment")),
     Center(child: Text("Profile")),
