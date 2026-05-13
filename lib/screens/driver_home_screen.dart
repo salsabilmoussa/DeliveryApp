@@ -1,5 +1,6 @@
 import 'package:delivery_app/provider/current_location_provider.dart';
 import 'package:delivery_app/utils/utils.dart';
+import 'package:delivery_app/widgets/order_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -81,7 +82,7 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: EdgeInsets.all(15),
-                    child: Text("Hello"),
+                    child: OrderCard(),
                   ),
                 ),
               Align(
